@@ -10,13 +10,7 @@ class Outlook(object):
 
 class Message(object):
     def __init__(
-        self,
-        parent=None,
-        subject="",
-        body="",
-        to_recipient=[],
-        cc_recipient=[],
-        show_=True,
+        self, parent=None, subject="", body="", to_recip=[], cc_recip=[], show_=True
     ):
 
         if parent is None:
@@ -28,8 +22,8 @@ class Message(object):
             with_properties={k.subject: subject, k.content: body},
         )
 
-        self.add_recipients(emails=to_recipient, type_="to")
-        self.add_recipients(emails=cc_recipient, type_="cc")
+        self.add_recipients(emails=to_recip, type_="to")
+        self.add_recipients(emails=cc_recip, type_="cc")
 
         if show_:
             self.show()
@@ -38,16 +32,12 @@ class Message(object):
         self.msg.open()
         self.msg.activate()
 
-    def add_attachment(self, path_file):
-        # path_file is a Path() obj, could also pass string
+    def add_attachment(self, p):
+        # p is a Path() obj, could also pass string
 
-        path_file = Alias(
-            str(path_file)
-        )  # convert string/path obj to POSIX/mactypes path
+        p = Alias(str(p))  # convert string/path obj to POSIX/mactypes path
 
-        attach = self.msg.make(new=k.attachment, with_properties={k.file: path_file})
-
-        return attach
+        attach = self.msg.make(new=k.attachment, with_properties={k.file: p})
 
     def add_recipients(self, emails, type_="to"):
         if not isinstance(emails, list):
