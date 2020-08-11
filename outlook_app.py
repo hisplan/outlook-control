@@ -10,7 +10,14 @@ class Outlook(object):
 
 class Message(object):
     def __init__(
-        self, parent=None, subject="", body="", to_recip=[], cc_recip=[], show_=True
+        self,
+        parent=None,
+        subject="",
+        body="",
+        to_recip=[],
+        cc_recip=[],
+        bcc_recip=[],
+        show_=True,
     ):
 
         if parent is None:
@@ -24,6 +31,7 @@ class Message(object):
 
         self.add_recipients(emails=to_recip, type_="to")
         self.add_recipients(emails=cc_recip, type_="cc")
+        self.add_recipients(emails=bcc_recip, type_="bcc")
 
         if show_:
             self.show()
@@ -52,6 +60,8 @@ class Message(object):
             recipient = k.to_recipient
         elif type_ == "cc":
             recipient = k.cc_recipient
+        elif type_ == "bcc":
+            recipient = k.bcc_recipient
 
         msg.make(new=recipient, with_properties={k.email_address: {k.address: email}})
 
