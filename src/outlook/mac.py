@@ -14,10 +14,10 @@ class Message(object):
         parent=None,
         subject="",
         body="",
-        to_recip=[],
-        cc_recip=[],
-        bcc_recip=[],
-        show_=True,
+        to_recipient=[],
+        cc_recipient=[],
+        bcc_recipient=[],
+        show_=False,
     ):
 
         if parent is None:
@@ -29,9 +29,9 @@ class Message(object):
             with_properties={k.subject: subject, k.content: body},
         )
 
-        self.add_recipients(emails=to_recip, type_="to")
-        self.add_recipients(emails=cc_recip, type_="cc")
-        self.add_recipients(emails=bcc_recip, type_="bcc")
+        self.add_recipients(emails=to_recipient, type_="to")
+        self.add_recipients(emails=cc_recipient, type_="cc")
+        self.add_recipients(emails=bcc_recipient, type_="bcc")
 
         if show_:
             self.show()
