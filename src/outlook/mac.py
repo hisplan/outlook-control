@@ -47,6 +47,8 @@ class Message(object):
 
         attach = self.msg.make(new=k.attachment, with_properties={k.file: p})
 
+        return attach
+
     def add_recipients(self, emails, type_="to"):
         if not isinstance(emails, list):
             emails = [emails]

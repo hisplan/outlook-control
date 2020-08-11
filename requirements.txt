@@ -1,1 +1,1 @@
-appscript
+appscript==1.1.1
